@@ -1,0 +1,108 @@
+import React, { useState } from "react";
+
+const EventRegistration = () => {
+  const [name, setName] = useState("");
+  const [event, setEvent] = useState("");
+  const [registrations, setRegistrations] = useState([]);
+
+  const events = [
+    "Tech Talk",
+    "Workshop on AI",
+    "Hackathon",
+    "Cultural Fest",
+  ];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!name || !event) {
+      alert("Please enter your name and select an event");
+      return;
+    }
+
+    const newRegistration = { name, event };
+
+    setRegistrations([...registrations, newRegistration]);
+
+    alert(`✅ Registration Successful!\n\nName: ${name}\nEvent: ${event}`);
+
+    // Reset form
+    setName("");
+    setEvent("");
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>📌 Event Registration</h2>
+
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <input
+          type="text"
+          placeholder="Participant Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          style={styles.input}
+        />
+
+        <select
+          value={event}
+          onChange={(e) => setEvent(e.target.value)}
+          style={styles.input}
+        >
+          <option value="">Select Event</option>
+          {events.map((ev, index) => (
+            <option key={index} value={ev}>
+              {ev}
+            </option>
+          ))}
+        </select>
+
+        <button type="submit" style={styles.button}>
+          Register
+        </button>
+      </form>
+
+      <h3>🧾 Registered Participants</h3>
+
+      {registrations.length === 0 ? (
+        <p>No registrations yet</p>
+      ) : (
+        <ul>
+          {registrations.map((item, index) => (
+            <li key={index}>
+              {item.name} → <strong>{item.event}</strong>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+const styles = {
+  container: {
+    width: "400px",
+    margin: "40px auto",
+    padding: "20px",
+    border: "1px solid #ccc",
+    borderRadius: "10px",
+  },
+  form: {
+    marginBottom: "20px",
+  },
+  input: {
+    width: "100%",
+    padding: "10px",
+    marginBottom: "10px",
+  },
+  button: {
+    width: "100%",
+    padding: "10px",
+    backgroundColor: "#4CAF50",
+    color: "#fff",
+    border: "none",
+    cursor: "pointer",
+  },
+};
+
+export default EventRegistration;
