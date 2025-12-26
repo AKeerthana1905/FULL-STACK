@@ -1,0 +1,44 @@
+function HotelReservation() {
+  const reserveRoom = () => {
+    const guestName = prompt("Enter guest name:");
+    if (!guestName) {
+      alert("Reservation cancelled: Name is required.");
+      return;
+    }
+
+    const roomType = prompt(
+      "Enter room type (Single / Double / Suite):"
+    );
+    if (!roomType) {
+      alert("Reservation cancelled: Room type is required.");
+      return;
+    }
+
+    const nights = prompt("Enter number of nights:");
+    if (!nights || isNaN(nights) || nights <= 0) {
+      alert("Reservation cancelled: Enter a valid number of nights.");
+      return;
+    }
+
+    const confirmReservation = confirm(
+      `Confirm Reservation?\n\nGuest: ${guestName}\nRoom: ${roomType}\nNights: ${nights}`
+    );
+
+    if (confirmReservation) {
+      alert(
+        `✅ Reservation Confirmed!\n\nGuest: ${guestName}\nRoom Type: ${roomType}\nStay: ${nights} night(s)`
+      );
+    } else {
+      alert("❌ Reservation cancelled by user.");
+    }
+  };
+
+  return (
+    <div style={{ padding: "20px" }}>
+      <h2>🏨 Hotel Reservation System</h2>
+      <button onClick={reserveRoom}>Reserve Room</button>
+    </div>
+  );
+}
+
+export default HotelReservation;
